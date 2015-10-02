@@ -29,7 +29,7 @@ if __name__ == "__main__":
     ngramdata = [markov.ngram(trimtext(i[:-1]), n) for i in usabletimeline]
     data = markov.flatten2D(ngramdata)
     mar = markov.Markov(data, n)
-    tweet = "".join(mar.markov(100, "__start__", "__end__", lambda x: len("".join(x)), 140))[9:-7]
+    tweet = "".join(mar.markov(100, "__start__", "__end__", lambda x: len("".join(x)), 140)[1:-1])
     
     #print tweet
     api.update_status(status=tweet)
