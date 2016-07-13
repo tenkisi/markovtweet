@@ -18,7 +18,7 @@ favorite = lambda api, tl: [api.create_favorite(tweet.id) for tweet in tl if re.
 
 def markovtweet(api):
     timeline = api.home_timeline(count=200)
-    n = random.randint(2, 5)
+    n = random.randint(3, 6)
     removeword = lambda text: re.sub(r"@|https?://\S*\s*", "", text)
     usabletimeline = [removeword(xssu.unescape(tw.text)) for tw in timeline if re.match("RT @\w{1,15}:", tw.text) == None]
     ngramdata = [markov.ngram(trimtext(text), n) for text in usabletimeline]
