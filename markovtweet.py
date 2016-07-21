@@ -14,12 +14,12 @@ def trimtext(rawtext):
     putspace = lambda word: word if re.match(ur"^[A-Za-z]*$", word) == None else word + " "
     return [START] + [putspace(k) for i in text.split("\n") for k in m.parse(i).decode("utf-8").split(" ")] + [END]
 
-favorite = lambda api, tl: [api.create_favorite(tweet.id) for tweet in tl if re.search(ur"てんきし|ten_kisi_bot", tweet.text) != None and not tweet.favorited]
+favorite = lambda api, tl: [api.create_favorite(tweet.id) for tweet in tl if re.search(ur"てんきし|ten_kisi_bot", tweet.text) is not None and not tweet.favorited and api.me().screen_name != tweet.user.screen_name]
 
 def markovtweet(api):
     timeline = api.home_timeline(count=200)
     n = random.randint(3, 6)
-    removeword = lambda text: re.sub(r"@|https?://\S*\s*", "", text)
+    removeword = lambda text: re.sub(r"[@＠]+|https?://\S*\s*", "", text)
     usabletimeline = [removeword(xssu.unescape(tw.text)) for tw in timeline if re.match("RT @\w{1,15}:", tw.text) == None]
     ngramdata = [markov.ngram(trimtext(text), n) for text in usabletimeline]
     data = markov.flatten2D(ngramdata)

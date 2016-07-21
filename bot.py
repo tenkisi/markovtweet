@@ -1,3 +1,4 @@
+#!/opt/local/bin/python2.7 -u
 # -*- coding: utf-8 -*-
 import tweepy
 import twiauth
